@@ -121,7 +121,7 @@ footer {
 
 <header>
     <h1>Versbrood</h1>
-    <p>Dagelijks vers brood in Almelo – Afhalen & Bezorging</p>
+    <p>Dagelijks vers brood in en rond Almelo – Afhalen & Bezorging</p>
 </header>
 
 <div class="container">
@@ -144,12 +144,12 @@ footer {
 </div>
 
 <div class="product">
-    <span>Volkorenbrood (€2,80)</span>
+    <span>Volkorenbrood 1 stuk €2 (max 2 per bestelling)</span>
     <input type="number" id="Volkorenbrood" min="0" value="0">
 </div>
 
 <div class="product">
-    <span>Meergranenbrood (€3,00)</span>
+    <span>witbrood 2,30 (max 2 per bestelling)</span>
     <input type="number" id="Meergranenbrood" min="0" value="0">
 </div>
 
@@ -157,15 +157,19 @@ footer {
 
 <label>Naam:</label> <input type="text" id="naam" required>
 
-<label>Afhalen of bezorgen:</label> <select id="levering"> <option>Afhalen</option> <option>Bezorging</option> </select>
+<label>Afhalen of bezorgen:</label> <select id="levering"> <option>Afhalen</option> <option>Bezorging(€5)</option> </select>
 
-<label>Adres (alleen bij bezorging):</label> <input type="text" id="adres">
+<label>Adres (alleen bij bezorging:</label> <input type="text" id="adres">
 
 <button type="submit">Bestelling per e-mail verzenden</button>
 
 </form>
 </div>
+<label>Kortingscode (optioneel):</label>
+<input type="text" id="kortingscode" placeholder="Bijv. VERSBROOD5">
+<p id="korting-info" style="color: green; font-weight: bold;"></p>
 
+    
 <div class="section contact">
 <h2>Contact</h2>
 <p><strong>Adres:</strong> Beymahuis 17, Almelo</p>
@@ -216,4 +220,5 @@ window.location.href =
 
 </body>
 </html>
+
 
