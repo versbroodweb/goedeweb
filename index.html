@@ -1,190 +1,54 @@
 <!DOCTYPE html>
-
 <html lang="nl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Versbrood Almelo</title>
-
-<style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    background-color: #f7f3e9;
-    color: #333;
-}
-
-header {
-    background-color: #8b5a2b;
-    color: white;
-    text-align: center;
-    padding: 25px 10px;
-}
-
-header h1 {
-    margin: 0;
-    font-size: 32px;
-}
-
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-}
-
-.section {
-    background: white;
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-.product {
-    border-bottom: 1px solid #ddd;
-    padding: 10px 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.product:last-child {
-    border-bottom: none;
-}
-
-.product input {
-    width: 60px;
-    padding: 5px;
-}
-
-button {
-    background-color: #8b5a2b;
-    color: white;
-    border: none;
-    padding: 15px;
-    width: 100%;
-    font-size: 18px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: #6f451f;
-}
-
-.contact p {
-    margin: 5px 0;
-}
-
-footer {
-    text-align: center;
-    padding: 15px;
-    background: #8b5a2b;
-    color: white;
-}
-</style>
-
+<title>Test Mail</title>
 </head>
-
 <body>
 
-<header>
-    <h1>Versbrood</h1>
-    <p>Dagelijks vers brood - Afhalen & Bezorging in en rond Almelo</p>
-</header>
+<h2>Test bestelling mail</h2>
 
-<div class="container">
+<form id="bestelForm">
+    <label>Naam:</label>
+    <input type="text" id="naam" value="Jan"><br><br>
 
-<div class="section">
-<h2>Bestel Brood</h2>
+    <label>Levering:</label>
+    <select id="levering">
+        <option>Afhalen</option>
+        <option>Bezorging</option>
+    </select><br><br>
 
-<form onsubmit="sendOrder(); return false;">
+    <label>Adres:</label>
+    <input type="text" id="adres" value="Straat 1"><br><br>
 
-<div class="product">
-    <span>afbak witte bollen 2x60g (€1,75)</span>
-    <input type="number" id="afbak witte bollen" min="0" value="0">
-</div>
+    <label>Kortingscode:</label>
+    <input type="text" id="kortingscode" value=""><br><br>
 
-<div class="product">
-    <span>afbak bruine bollen 2x60g (€1,75)</span>
-    <input type="number" id="afbak bruine bollen" min="0" value="0">
-</div>
-
-<div class="product">
-    <span>Volkorenbrood (€2,80)</span>
-    <input type="number" id="Volkorenbrood" min="0" value="0">
-</div>
-
-<div class="product">
-    <span>tarw wit brood (€3,00)</span>
-    <input type="number" id="tarwe wit brood" min="0" value="0">
-</div>
-
-<br>
-<label>Naam:</label><br>
-<input type="text" id="naam" required style="width:100%; padding:8px;"><br><br>
-
-<label>Afhalen of bezorgen:</label><br> <select id="levering" style="width:100%; padding:8px;">
-
-<option>Afhalen</option>
-<option>Bezorging(€5)</option>
-</select><br><br>
-
-<label>Adres (alleen bij bezorging):</label><br> <input type="text" id="adres" style="width:100%; padding:8px;"><br><br>
-
-<button type="submit">Bestelling per e-mail versturen</button>
-
+    <button type="button" onclick="verstuurMail()">Verstuur mail</button>
 </form>
-    <label>Kortingscode (optioneel):</label>
-<input type="text" id="kortingscode" placeholder="Bijv. VERSBROOD5">
-<p id="korting-info" style="color: green; font-weight: bold;"></p>
-
-</div>
-
-<div class="section contact">
-<h2>Contact</h2>
-<p><strong>Adres:</strong> Beymahuis 17, Almelo</p>
-<p><strong>Telefoon:</strong> +31 6 17255796</p>
-<p><strong>E-mail:</strong> info.versbrood@gmail.com</p>
-</div>
-
-</div>
-
-<footer>
-© 2026 Versbrood
-</footer>
 
 <script>
-function sendOrder() {
+function verstuurMail() {
+    let naam = document.getElementById("naam").value;
+    let levering = document.getElementById("levering").value;
+    let adres = document.getElementById("adres").value;
+    let kortingscode = document.getElementById("kortingscode").value.trim().toUpperCase();
 
-let producten = [
-"afbak witte bollen",
-"afbak bruine bollen ",
-"Volkorenbrood",
-"tarwe wit brood"
-];
-
-let bestelling = "Nieuwe bestelling:%0D%0A%0D%0A";
-
-producten.forEach(function(p) {
-    let aantal = document.getElementById(p).value;
-    if (aantal > 0) {
-        bestelling += p + ": " + aantal + "%0D%0A";
+    let tekst = "Nieuwe bestelling:\n\n";
+    tekst += "Naam: " + naam + "\n";
+    tekst += "Levering: " + levering + "\n";
+    if(levering === "Bezorging") {
+        tekst += "Adres: " + adres + "\n";
     }
-});
 
-let naam = document.getElementById("naam").value;
-let levering = document.getElementById("levering").value;
-let adres = document.getElementById("adres").value;
+    if(kortingscode === "VERSBROOD5") tekst += "Kortingscode: VERSBROOD5 (€5 korting)\n";
+    else if(kortingscode === "VERSBROOD10") tekst += "Kortingscode: VERSBROOD10 (€10 korting)\n";
+    else if(kortingscode !== "") tekst += "Onbekende kortingscode: " + kortingscode + "\n";
 
-bestelling += "%0D%0ANaam: " + naam;
-bestelling += "%0D%0ALevering: " + levering;
+    let mailBody = encodeURIComponent(tekst);
+    let mailSubject = encodeURIComponent("Bestelling Versbrood");
 
-if (levering === "Bezorging") {
-    bestelling += "%0D%0AAdres: " + adres;
-}
-
-window.location.href = "mailto:info.versbrood@gmail.com?subject=Bestelling Versbrood&body=" + bestelling;
+    window.location.href = "mailto:info.versbrood@gmail.com?subject=" + mailSubject + "&body=" + mailBody;
 }
 </script>
 
